@@ -3,39 +3,29 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int	ft_printf(char *in, ...)
+void	chooser(char input, int *count, va_list *ap)
+{
+	write (1, "X", 1);
+	return;
+}
+
+int	ft_printf(char *input, ...)
 {
 	int		count;
-	char	*str;
 	va_list ap;
-	char	*txt;
 
-	str = in;
 	count = 0;
-	va_start (ap, in);
-	while (*in)
+	va_start (ap, input);
+	while (*input)
 	{
-		if (*in == '%')
+		if (*input == '%')
 		{
-			in ++;
-			if (*in == 'd')
-			{
-				int d = va_arg (ap, int);
-				printf ("%d", d);
-			}
-			else if (*in == 's')
-			{
-				txt = va_arg (ap, char *);
-				while (*txt)
-				{
-					write (1, txt, 1);
-					txt ++;
-				}
-			}
+			input ++;
+			chooser (*input, &count, &ap);
 		}
 		else
-			write (1, in, 1);
-		in ++;
+			write (1, input, 1);
+		input ++;
 		count ++;
 	}
 	va_end (ap);
